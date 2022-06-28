@@ -1,0 +1,7 @@
+projetv2
+
+TODO :
+
+- ajouter champ alreadyLiked dans table => car possibilité de monter/baisser nb de like à l'infini
+- repenser projet pour ne plus avoir le même contenu dans PostContent et dans PostDetail
+- voir pour transformer post en Observable dans PostContent

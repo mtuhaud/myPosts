@@ -1,0 +1,15 @@
+<div class="post" *ngIf="post$ | async as post" [ngClass]="{ liked: alreadyLiked === true }">
+    <h2> {{ post.title | uppercase }} </h2>
+    <p> Publication postée le {{ post.date | date: 'dd/MM/yyyy à HH:mm' }} 
+        | <span [ngStyle]="{ 'color': getColor(post.like)}">🤙 : {{ post.like }} </span></p>
+    <p *ngIf="post.location"> Localisation : {{ post.location }} </p>
+    <img [src]="post.imageUrl" [title]="post.title">
+    <p> {{ post.description }} </p>
+    <button (click)="onReactToThePicture(post.id)">{{ libelleBouton }}</button>
+    <button routerLink="/posts">Revenir à la liste des publications</button>
+    
+</div>
+    <!-- autre façon de faire  -->
+    <!-- <button (click)="onLikePhoto()" *ngIf="!alreadyLiked">J'aime la photo</button>
+    <button (click)="onDislikePhoto()" *ngIf="alreadyLiked">Je n'aime plus la photo</button> -->
+

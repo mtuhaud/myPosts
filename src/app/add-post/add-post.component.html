@@ -1,0 +1,36 @@
+<form class="post" [formGroup]="postForm">
+    <h2>NOUVEAU POST</h2>
+    <br>
+    <label for="title">Titre : 
+    </label>
+    <br>
+    <input type="text" id="title" formControlName="title">
+    <br>
+    <label for="description">Description : 
+    </label>
+    <br>
+    <textarea type="text" id="description" formControlName="description"></textarea>
+    <br>
+    <label for="image">URL de l'image : 
+    </label>
+    <br>
+    <input type="text" id="image" formControlName="imageUrl">
+    <br>
+    <label for="localisation">Localisation : 
+    </label>
+    <br>
+    <input type="text" id="localisation" formControlName="location">
+    <br>
+    <br>
+    <button type="submit" (click)="onSubmitPostForm()" [disabled]="postForm.invalid">Poster</button> 
+
+</form>
+
+<div class="post" *ngIf="postPreview$ | async as post">
+    <h2> {{ post.title | uppercase }} </h2>
+    <p> Publication postée le {{ post.date | date: 'dd/MM/yyyy à HH:mm' }} 
+        | 🤙 : {{ post.like }} </p>
+    <p *ngIf="post.location"> Localisation : {{ post.location }} </p>
+    <img [src]="post.imageUrl" [title]="post.title">
+    <p> {{ post.description }} </p>
+</div>

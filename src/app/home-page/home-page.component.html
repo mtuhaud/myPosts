@@ -1,0 +1,9 @@
+<h2>Inscrivez-vous à la newsletter pour voir les nouveaux posts</h2>
+
+<form #newsletterForm="ngForm" (ngSubmit)="submitForm(newsletterForm)">
+    <label for="mailField">Votre  mail : </label>
+    <input type="mail" id="mailField" [(ngModel)]="newsletter" name="userMail">
+    <button type="submit">S'inscrire</button>
+</form>
+<br>
+<button (click)="onRedirectToPosts()">Voir les posts</button>
