@@ -5,10 +5,14 @@ import { Injectable } from "@angular/core";
 })
 export class AuthService {
 
-    token: string = "FakeToken"
+    token!: string;
 
     getToken(): string {
         return this.token;
+    }
+
+    login(): void {
+        this.token = "FakeToken";
     }
 
 }

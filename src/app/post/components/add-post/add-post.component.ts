@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Post } from '../models/post.model';
-import { PostService } from '../services/post.service';
+import { Post } from '../../../core/models/post.model';
+import { PostService } from '../../../core/services/post.service';
 
 @Component({
   selector: 'app-add-post',

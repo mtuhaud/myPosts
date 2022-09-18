@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, map } from 'rxjs/operators';
-import { Post } from '../models/post.model';
-import { PostService } from '../services/post.service';
+import { Post } from 'src/app/core/models/post.model';
+import { PostService } from 'src/app/core/services/post.service';
+
 @Component({
   selector: 'app-post-content',
   templateUrl: './post-content.component.html',

@@ -2,6 +2,10 @@ projetv2
 
 TODO :
 
-- ajouter champ alreadyLiked dans table => car possibilité de monter/baisser nb de like à l'infini
+- Fonction supprimer post
+- Optionnel : améliorer message validation form. Au clic sur valider, ajouter message erreur pour champs vide ou en erreur
+
+- FAIT ?! ajouter champ alreadyLiked dans table => car possibilité de monter/baisser nb de like à l'infini
 - repenser projet pour ne plus avoir le même contenu dans PostContent et dans PostDetail
 - voir pour transformer post en Observable dans PostContent
+

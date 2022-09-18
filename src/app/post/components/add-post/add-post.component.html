@@ -5,16 +5,42 @@
     </label>
     <br>
     <input type="text" id="title" formControlName="title">
+        <span *ngIf="postForm.get('title')?.invalid 
+        && (postForm.get('title')?.dirty || postForm.get('title')?.touched)"
+        style="color: red;">
+            <br>
+            *Ce champ est requis.
+        </span>
     <br>
     <label for="description">Description : 
     </label>
     <br>
     <textarea type="text" id="description" formControlName="description"></textarea>
+        <span *ngIf="postForm.get('description')?.invalid 
+        && (postForm.get('description')?.dirty || postForm.get('description')?.touched)"
+        style="color: red;">
+            <br>
+            *Ce champ est requis.
+        </span>
     <br>
     <label for="image">URL de l'image : 
     </label>
     <br>
     <input type="text" id="image" formControlName="imageUrl">
+    <!-- <div *ngIf="postForm.get('imageUrl')?.hasError('pattern') && 
+    postForm.get('imageUrl')?.hasError('required')"> -->
+        <span *ngIf="postForm.get('imageUrl')?.hasError('required')
+        && (postForm.get('imageUrl')?.dirty || postForm.get('imageUrl')?.touched)"
+        style="color: red;">
+        <br>
+        *Ce champ est requis.
+        </span>
+        <span
+        *ngIf="postForm.get('imageUrl')?.hasError('pattern')"
+        style="color: red;">
+        <br>
+        *Le lien n'est pas correct.
+        </span>
     <br>
     <label for="localisation">Localisation : 
     </label>

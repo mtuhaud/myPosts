@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { Post } from '../models/post.model';
-import { PostService } from '../services/post.service';
+import { Post } from 'src/app/core/models/post.model';
+import { PostService } from 'src/app/core/services/post.service';
+
 
 @Component({
   selector: 'app-posts-list',
