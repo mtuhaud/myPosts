@@ -13,12 +13,14 @@ export class PostService {
 
     myPosts: Post[] =  [];
 
+    url: string = "http://localhost:3000/posts/"
+
     getPosts(): Observable<Post[]> {
-      return this.httpClient.get<Post[]>("http://localhost:3000/posts");
+      return this.httpClient.get<Post[]>(this.url);
     }
 
     getOnePost(id: number): Observable<Post> {
-      return this.httpClient.get<Post>("http://localhost:3000/posts/" + id);
+      return this.httpClient.get<Post>(this.url + id);
     }
 
     //   getPostById(id: number): Post {
@@ -42,7 +44,7 @@ export class PostService {
           id: previousPost.id + 1
         })),
         switchMap( 
-          newPost => this.httpClient.post<Post>("http://localhost:3000/posts", newPost))
+          newPost => this.httpClient.post<Post>(this.url, newPost))
 
       )
 
@@ -55,9 +57,13 @@ export class PostService {
             like: value.like + (likeStatus === 'like' ? 1 : -1)
         })),
         switchMap(updatedPost => 
-            this.httpClient.put<Post>("http://localhost:3000/posts/" + id, updatedPost)
+            this.httpClient.put<Post>(this.url + id, updatedPost)
         )
       )
+    }
+
+    deletePost(id: number) {
+      return this.httpClient.delete<Post>(this.url + id);
     }
 
 

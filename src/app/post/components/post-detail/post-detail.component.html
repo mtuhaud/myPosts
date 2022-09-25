@@ -6,6 +6,7 @@
     <img [src]="post.imageUrl" [title]="post.title">
     <p> {{ post.description }} </p>
     <button (click)="onReactToThePicture(post.id)">{{ libelleBouton }}</button>
+    <button (click)="onDeletePost(post.id)">Supprimer publication</button>
     <button routerLink="/posts">Revenir à la liste des publications</button>
     
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Post } from 'src/app/core/models/post.model';
@@ -17,7 +17,7 @@ export class PostDetailComponent implements OnInit {
   alreadyLiked = false;
   libelleBouton!: string;
   
-  constructor(private postService: PostService, private route: ActivatedRoute){}
+  constructor(private postService: PostService, private route: ActivatedRoute, private router: Router){}
   
   ngOnInit(): void {
 
@@ -52,6 +52,15 @@ export class PostDetailComponent implements OnInit {
       );
 
     }
+  }
+  
+  onDeletePost(id: number) {
+    this.postService.deletePost(id).pipe(
+      tap(() => {
+        this.router.navigateByUrl('posts')
+      }
+      )
+    ).subscribe();
   }
   
   getColor(like: number){
