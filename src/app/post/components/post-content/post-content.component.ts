@@ -29,7 +29,7 @@ ngOnInit(): void {
 onReactToThePicture(id: number){
 
   if(!this.alreadyLiked) {
-    this.postService.updatePost(id, 'like').pipe(
+    this.postService.updateLikeStatus(id, 'like').pipe(
       map(value => this.post = value),
       tap( () => {
         this.alreadyLiked = true;
@@ -37,7 +37,7 @@ onReactToThePicture(id: number){
       })
     ).subscribe();
   } else {
-    this.postService.updatePost(id, 'unLike').pipe(
+    this.postService.updateLikeStatus(id, 'unLike').pipe(
       map( value => this.post = value),
       tap( () => {
         this.alreadyLiked = false;

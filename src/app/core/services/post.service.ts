@@ -50,7 +50,7 @@ export class PostService {
 
     }
 
-    updatePost(id: number, likeStatus: 'like' | 'unLike'): Observable<Post> {
+    updateLikeStatus(id: number, likeStatus: 'like' | 'unLike'): Observable<Post> {
       return this.getOnePost(id).pipe(
         map(value => ({
             ...value,
@@ -59,6 +59,23 @@ export class PostService {
         switchMap(updatedPost => 
             this.httpClient.put<Post>(this.url + id, updatedPost)
         )
+      )
+    }
+
+    updatePost(id: number, post: Post) {
+      return this.getOnePost(id).pipe(
+        map(value => (
+          {
+            ...value,
+            title: post.title,
+            description: post.description,
+            imageUrl: post.imageUrl,
+            location: post.location,
+          }
+        )),
+        switchMap( updatedPost =>
+          this.httpClient.put<Post>(this.url + id, updatedPost)
+          )
       )
     }
 

@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { AddPostComponent } from "./components/add-post/add-post.component";
 import { PostContentComponent } from "./components/post-content/post-content.component";
 import { PostDetailComponent } from "./components/post-detail/post-detail.component";
+import { PostUpdateComponent } from "./components/post-update/post-update.component";
 import { PostsListComponent } from "./components/posts-list/posts-list.component";
 import { PostRoutingModule } from "./post-routing.module";
 
@@ -16,7 +17,8 @@ import { PostRoutingModule } from "./post-routing.module";
     AddPostComponent,
     PostContentComponent,
     PostsListComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    PostUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { PostRoutingModule } from "./post-routing.module";
     AddPostComponent,
     PostContentComponent,
     PostsListComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    PostUpdateComponent
   ]
 })
 export class PostModule { }

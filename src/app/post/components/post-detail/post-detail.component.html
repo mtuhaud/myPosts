@@ -6,10 +6,28 @@
     <img [src]="post.imageUrl" [title]="post.title">
     <p> {{ post.description }} </p>
     <button (click)="onReactToThePicture(post.id)">{{ libelleBouton }}</button>
+    <button (click)="onToggleUpdate()">Modifier publication</button>
     <button (click)="onDeletePost(post.id)">Supprimer publication</button>
     <button routerLink="/posts">Revenir à la liste des publications</button>
     
-</div>
+    
+    <!-- test Output  -->
+    
+    <!-- <app-post-update (newItemEvent)="addItem($event)"></app-post-update>
+        <app-post-update (postUpdate)="sendPostFromChild($event)"></app-post-update> 
+        {{ items }} 
+        
+        <ul>
+            <li *ngFor="let item of items">{{item}}</li>
+        </ul> --> 
+    <!-- <app-post-update *ngIf="showUpdateBlock" [postUpdate]="post" (onKeyUp)="receiveInput($event)"></app-post-update>  -->
+
+    </div>
+
+    <div *ngIf="post$ | async as post">
+        <app-post-update *ngIf="showUpdateBlock" [postUpdate]="post"></app-post-update>
+    </div>
+    
     <!-- autre façon de faire  -->
     <!-- <button (click)="onLikePhoto()" *ngIf="!alreadyLiked">J'aime la photo</button>
     <button (click)="onDislikePhoto()" *ngIf="alreadyLiked">Je n'aime plus la photo</button> -->

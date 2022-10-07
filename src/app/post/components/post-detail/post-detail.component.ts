@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -16,6 +17,18 @@ export class PostDetailComponent implements OnInit {
   post$! : Observable<Post>;
   alreadyLiked = false;
   libelleBouton!: string;
+  showUpdateBlock: boolean = false;
+
+  // code pour Output
+  // items: string[] = [];
+
+  // addItem(newItem: string) {
+  //   this.items.push(newItem);
+  // }
+
+  // sendPostFromChild(post: Observable<Post>) {
+  //   this.post$ = post;
+  // }
   
   constructor(private postService: PostService, private route: ActivatedRoute, private router: Router){}
   
@@ -35,7 +48,7 @@ export class PostDetailComponent implements OnInit {
   onReactToThePicture(id: number){
   
     if(!this.alreadyLiked) {
-      this.post$ = this.postService.updatePost(id, 'like').pipe(
+      this.post$ = this.postService.updateLikeStatus(id, 'like').pipe(
         tap( () => {
           this.alreadyLiked = true;
           this.libelleBouton = "👎 J'aime plus";
@@ -43,7 +56,7 @@ export class PostDetailComponent implements OnInit {
         )
       )
     } else {
-      this.post$ = this.postService.updatePost(id, 'unLike').pipe(
+      this.post$ = this.postService.updateLikeStatus(id, 'unLike').pipe(
         tap( () => {     
           this.alreadyLiked = false;
           this.libelleBouton = "🤙 J'aime";
@@ -52,6 +65,15 @@ export class PostDetailComponent implements OnInit {
       );
 
     }
+  }
+
+  onToggleUpdate() {
+    this.showUpdateBlock = !this.showUpdateBlock;
+  }
+
+  receiveInput($event: any) {
+    this.post$ = $event;
+    // console.log('Input from child : ', this.inputFromChild);
   }
   
   onDeletePost(id: number) {
