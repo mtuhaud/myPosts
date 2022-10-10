@@ -16,7 +16,6 @@ export class PostDetailComponent implements OnInit {
 
   post$! : Observable<Post>;
   alreadyLiked!: boolean;
-  libelleBouton!: string;
   showUpdateBlock: boolean = false;
 
   // code pour Output
@@ -35,32 +34,18 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
 
     const id = this.route.snapshot.params.id;
-    console.log(id);
-    //this.post$ = this.postService.getOnePost(id);
-
     this.post$ = this.postService.getOnePost(id).pipe(
       tap(value => 
         this.alreadyLiked = value.likeStatus,
-      ),
-      tap( () =>
-      this.libelleBouton = this.alreadyLiked === true ? "👎 J'aime plus" : "🤙 J'aime"
       )
     );
-  
-    console.log('alreadyLiked = ' + this.alreadyLiked);
-    // this.libelleBouton = this.alreadyLiked === true ? "👎 J'aime plus" : "🤙 J'aime";
 
   }
   
   onReactToThePicture(id: number){
-  
-    console.log('debut on react : alreadyLiked = ' + this.alreadyLiked);
     let like = this.alreadyLiked === true ? false : true;
-    console.log('debut on react : like = ' + like);
     this.post$ = this.postService.updateLikeStatus(id, like).pipe(
-      tap(value => 
-      this.libelleBouton = value.likeStatus === true ? "👎 J'aime plus" : "🤙 J'aime"),
-      tap( () =>
+      tap(() =>
         this.alreadyLiked = !this.alreadyLiked)
     );
 

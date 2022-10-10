@@ -18,25 +18,17 @@ libelleBouton!: string;
 constructor(private postService: PostService, private router: Router, private route: ActivatedRoute){}
 
 ngOnInit(): void {
-
-  console.log(this.post.likeStatus);
-  this.libelleBouton = this.post.likeStatus === true ? "👎 J'aime plus" : "🤙 J'aime";
 }
 
 onReactToThePicture(id: number){
-
   let like = this.post.likeStatus === true ? false : true;
   console.log('like = ' + like)
   this.postService.updateLikeStatus(this.post.id, like).pipe(
-    map(value => this.post = value),
-    tap( value =>
-      this.libelleBouton = value.likeStatus === true ? "👎 J'aime plus" : "🤙 J'aime"
-    )
+    map(value => 
+      this.post = value)
   )
   .subscribe();
 }
-
-
 
 getColor(like: number){
   let color = "black";

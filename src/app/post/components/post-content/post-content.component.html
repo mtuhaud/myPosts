@@ -6,7 +6,11 @@
     <img [src]="post.imageUrl" [title]="post.title">
     <p> {{ post.description }} </p>
     <button [routerLink]="[post.id]">Voir en détail la publication</button>
-    <button (click)="onReactToThePicture(post.id)">{{ libelleBouton }}</button>
+
+    <button  *ngIf="post.likeStatus; else not_liked" (click)="onReactToThePicture(post.id)" >👎 J'aime plus</button>
+    <ng-template #not_liked>
+        <button  (click)="onReactToThePicture(post.id)">🤙 J'aime</button>
+    </ng-template> 
     
     <!-- autre façon de faire  -->
     <!-- <button (click)="onLikePhoto()" *ngIf="!alreadyLiked">J'aime la photo</button>
