@@ -21,10 +21,6 @@
             <li *ngFor="let item of items">{{item}}</li>
         </ul> --> 
     <!-- <app-post-update *ngIf="showUpdateBlock" [postUpdate]="post" (onKeyUp)="receiveInput($event)"></app-post-update>  -->
-
-    </div>
-
-    <div *ngIf="post$ | async as post">
         <app-post-update *ngIf="showUpdateBlock" [postUpdate]="post"></app-post-update>
     </div>
     
