@@ -1,4 +1,4 @@
-<div class="post" [ngClass]="{ liked: alreadyLiked === true }">
+<div class="post" [ngClass]="{ liked: post.likeStatus === true }">
     <h2> {{ post.title | uppercase }} </h2>
     <p> Publication postée le {{ post.date | date: 'dd/MM/yyyy à HH:mm' }} 
         | <span [ngStyle]="{ 'color': getColor(post.like)}">🤙 : {{ post.like }} </span></p>

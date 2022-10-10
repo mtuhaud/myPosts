@@ -50,11 +50,12 @@ export class PostService {
 
     }
 
-    updateLikeStatus(id: number, likeStatus: 'like' | 'unLike'): Observable<Post> {
+    updateLikeStatus(id: number, isLike: boolean): Observable<Post> {
       return this.getOnePost(id).pipe(
         map(value => ({
             ...value,
-            like: value.like + (likeStatus === 'like' ? 1 : -1)
+            like: value.like + (isLike === true ? 1 : -1),
+            likeStatus: isLike === true ? true : false
         })),
         switchMap(updatedPost => 
             this.httpClient.put<Post>(this.url + id, updatedPost)

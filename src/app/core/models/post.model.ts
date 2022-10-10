@@ -7,6 +7,7 @@ export class Post {
     like!: number;
     imageUrl!: string;
     location?: string;
+    likeStatus!: boolean;
 
 
 }

@@ -43,7 +43,8 @@ export class AddPostComponent implements OnInit {
           ...value,
           date: [new Date()],
           like: 0,
-          id: 0
+          id: 0,
+          likeStatus: false
         }
       ))
     )

@@ -1,4 +1,4 @@
-<div class="post" *ngIf="post$ | async as post" [ngClass]="{ liked: alreadyLiked === true }">
+<div class="post" *ngIf="post$ | async as post" [ngClass]="{ liked: post.likeStatus === true }">
     <h2> {{ post.title | uppercase }} </h2>
     <p> Publication postée le {{ post.date | date: 'dd/MM/yyyy à HH:mm' }} 
         | <span [ngStyle]="{ 'color': getColor(post.like)}">🤙 : {{ post.like }} </span></p>
@@ -23,7 +23,7 @@
     <!-- <app-post-update *ngIf="showUpdateBlock" [postUpdate]="post" (onKeyUp)="receiveInput($event)"></app-post-update>  -->
         <app-post-update *ngIf="showUpdateBlock" [postUpdate]="post"></app-post-update>
     </div>
-    
+
     <!-- autre façon de faire  -->
     <!-- <button (click)="onLikePhoto()" *ngIf="!alreadyLiked">J'aime la photo</button>
     <button (click)="onDislikePhoto()" *ngIf="alreadyLiked">Je n'aime plus la photo</button> -->

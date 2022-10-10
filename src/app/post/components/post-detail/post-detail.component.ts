@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Post } from 'src/app/core/models/post.model';
 import { PostService } from 'src/app/core/services/post.service';
 
@@ -15,7 +15,7 @@ import { PostService } from 'src/app/core/services/post.service';
 export class PostDetailComponent implements OnInit {
 
   post$! : Observable<Post>;
-  alreadyLiked = false;
+  alreadyLiked!: boolean;
   libelleBouton!: string;
   showUpdateBlock: boolean = false;
 
@@ -36,35 +36,34 @@ export class PostDetailComponent implements OnInit {
 
     const id = this.route.snapshot.params.id;
     console.log(id);
-    this.post$ = this.postService.getOnePost(id);
+    //this.post$ = this.postService.getOnePost(id);
+
+    this.post$ = this.postService.getOnePost(id).pipe(
+      tap(value => 
+        this.alreadyLiked = value.likeStatus,
+      ),
+      tap( () =>
+      this.libelleBouton = this.alreadyLiked === true ? "👎 J'aime plus" : "🤙 J'aime"
+      )
+    );
   
-    if(!this.alreadyLiked) {
-      this.libelleBouton = "🤙 J'aime";
-    } else {
-      this.libelleBouton = "👎 J'aime plus";
-    }
+    console.log('alreadyLiked = ' + this.alreadyLiked);
+    // this.libelleBouton = this.alreadyLiked === true ? "👎 J'aime plus" : "🤙 J'aime";
+
   }
   
   onReactToThePicture(id: number){
   
-    if(!this.alreadyLiked) {
-      this.post$ = this.postService.updateLikeStatus(id, 'like').pipe(
-        tap( () => {
-          this.alreadyLiked = true;
-          this.libelleBouton = "👎 J'aime plus";
-        }
-        )
-      )
-    } else {
-      this.post$ = this.postService.updateLikeStatus(id, 'unLike').pipe(
-        tap( () => {     
-          this.alreadyLiked = false;
-          this.libelleBouton = "🤙 J'aime";
-        }
-        )
-      );
+    console.log('debut on react : alreadyLiked = ' + this.alreadyLiked);
+    let like = this.alreadyLiked === true ? false : true;
+    console.log('debut on react : like = ' + like);
+    this.post$ = this.postService.updateLikeStatus(id, like).pipe(
+      tap(value => 
+      this.libelleBouton = value.likeStatus === true ? "👎 J'aime plus" : "🤙 J'aime"),
+      tap( () =>
+        this.alreadyLiked = !this.alreadyLiked)
+    );
 
-    }
   }
 
   onToggleUpdate() {

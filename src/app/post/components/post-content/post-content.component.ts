@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap, map } from 'rxjs/operators';
 import { Post } from 'src/app/core/models/post.model';
 import { PostService } from 'src/app/core/services/post.service';
@@ -12,44 +12,31 @@ import { PostService } from 'src/app/core/services/post.service';
 export class PostContentComponent implements OnInit{
 
 @Input() post!: Post;
-alreadyLiked = false;
+alreadyLiked!: boolean;
 libelleBouton!: string;
 
-constructor(private postService: PostService, private router: Router){}
+constructor(private postService: PostService, private router: Router, private route: ActivatedRoute){}
 
 ngOnInit(): void {
 
-  if(!this.alreadyLiked) {
-    this.libelleBouton = "🤙 J'aime";
-  } else {
-    this.libelleBouton = "👎 J'aime plus";
-  }
+  console.log(this.post.likeStatus);
+  this.libelleBouton = this.post.likeStatus === true ? "👎 J'aime plus" : "🤙 J'aime";
 }
 
 onReactToThePicture(id: number){
 
-  if(!this.alreadyLiked) {
-    this.postService.updateLikeStatus(id, 'like').pipe(
-      map(value => this.post = value),
-      tap( () => {
-        this.alreadyLiked = true;
-        this.libelleBouton = "👎 J'aime plus";
-      })
-    ).subscribe();
-  } else {
-    this.postService.updateLikeStatus(id, 'unLike').pipe(
-      map( value => this.post = value),
-      tap( () => {
-        this.alreadyLiked = false;
-        this.libelleBouton = "🤙 J'aime";
-      } )
-    ).subscribe();
-  }
+  let like = this.post.likeStatus === true ? false : true;
+  console.log('like = ' + like)
+  this.postService.updateLikeStatus(this.post.id, like).pipe(
+    map(value => this.post = value),
+    tap( value =>
+      this.libelleBouton = value.likeStatus === true ? "👎 J'aime plus" : "🤙 J'aime"
+    )
+  )
+  .subscribe();
 }
 
-onRedirectToDetail(alreadyLiked: boolean, id: number): void{
-  this.router.navigateByUrl("posts/" + id);
-}
+
 
 getColor(like: number){
   let color = "black";
